@@ -1,0 +1,38 @@
+LeeCode Practice 54
+Spiral matrix
+matrix out
+int m=ans.size();
+for(int i=0;i<m;i++){
+	ans.push_back(matrix[i])
+}
+return ans;
+
+FOR example:
+给你一个 m 行 n 列的矩阵 matrix ，请按照 顺时针螺旋顺序 ，返回矩阵中的所有元素
+//接收二维矩阵，返回一维矩阵
+//接收二维数组所以用vector<vector<int>>
+//返回一维数组所以vector<int>
+//先返回所有元素，在实现螺旋遍历
+//螺旋遍历本质：上下作用有的边界
+class Solution{
+    public:
+    vector<int>spiralOrder(vector<vector<int>>&matrix){
+        vector<int>ans;//返回的数组容器
+        int m=matrix.size();//行数
+        int n=matrix[0].size();//列数
+        int top=0,bottom=m-1;//上下边界
+        int left=0,right=n-1;//左右边界
+        while(1){
+            for(int i=left;i<=right;i++)  ans.push_back(matrix[top][i]);
+            if(++top>bottom) break;
+            for(int i=top;i<=bottom;i++) ans.push_back(matrix[i][right]);
+            if(--right<left) break;
+            for(int i=right;i>=left;i--)   ans.push_back(matrix[bottom][i]);
+            if(--bottom<top) break;
+            for (int i = bottom; i >= top;--i) ans.push_back(matrix[i][left]);
+            if (++left > right) break;
+        }
+    return ans;
+    }
+    
+};
