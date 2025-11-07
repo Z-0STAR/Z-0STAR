@@ -1,0 +1,37 @@
+2528. 最大化城市的最小电量
+
+原代码
+//一个数组 组成城市 和供电站 
+//供电站有范围 r ,城市j 供电,|i - j| <= r 且 0 <= i, j <= n - 1 
+//点亮，供电站数目
+//r k(供电站范围，供电站数量),供电范围+-=r
+//最小电量的最大值
+//当前 s[i]+[i-2,i+2],之间所有 充电站个数
+//逻辑抽象：数组中随意数值，范围中之和
+//s[left]--s[right],之和
+//得出数组储存
+
+class Solution{
+    public:
+    long long maxPower(vector<int>&stations,int r,int k){
+        int l=stations.size();
+        vector<int>ans;
+        int minNum=0;
+        for(int i=0;i<l;i++){
+            int left=i-r;
+            int right=i+r;
+            int sum=0;
+            for(int j=left;j<right;j++){
+                sum+=stations[j];
+                ans[i]=sum;
+            }
+            minNum=min(ans[i],minNum);
+        }
+    return minNum;
+    } 
+};
+//错误点
+数组越界：j 从 left=i-r 开始（可能为负数），到 right=i+r 结束（可能超过数组长度），访问 stations[j] 会越界。
+逻辑错误：ans 数组未初始化大小，直接赋值 ans[i] = sum 会崩溃；求和时 right 应取 i+r（闭区间），原代码是开区间，导致少加右边元素。
+未使用 k 参数：题目允许新增 k 个电站，原代码完全未处理新增逻辑，仅计算了原始覆盖和的最小值，不符合题意。
+求和效率低：双重循环求和时间复杂度为 O(n*r)，当 n 和 r 较大时会超时，应使用前缀和优化到 O(n)。
