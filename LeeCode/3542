@@ -1,0 +1,27 @@
+class Solution{
+    public:
+    int minOperations(vector<int>&nums){
+        vector<int>s;//单调栈                                                   
+        int count=0;//操作数                    
+        for(auto a:nums){
+            while(!s.empty() &&s.back()>a){
+                s.pop_back();
+            }
+            
+        }
+        if(a==0)continue;
+        if(s.empty()||s.back()<a){
+            ++count;
+            s.push_back;
+        }
+    return count;
+    }
+};
+//生命周期和作用域
+生命周期：内存存在时间(运行时概念)：静态、自动、动态
+作用域：可见范围（编译时概念）：全局、局部、命名空间、类
+二者的关系
+静态：生命周期>作用域（局部静态变量可见于块内，但内存一直存在）；
+自动：生命周期 ≈ 作用域（进入块分配，出块释放）；
+动态：动态存储变量：生命周期与作用域无关（堆对象的作用域可能是局部，但内存可在作用域外存在）。
+
