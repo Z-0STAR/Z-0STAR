@@ -1,0 +1,19 @@
+//range for
+class Solution{
+    public:
+    int findFinalValue(vector<int>&nums,int original){
+        bool found;
+        do{
+            found=false;
+            for(int num:nums){
+                if(num==original){
+                    original=original*2;
+                    found=true;
+                    break;
+                }
+            }
+        }while(found);
+        
+        return original;
+    }
+};
