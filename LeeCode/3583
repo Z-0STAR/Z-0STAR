@@ -1,0 +1,23 @@
+class Solution{
+    public:
+    int specialTriplets(vector<int>&nums){
+        int const MOD=1'000'000'007;
+        long long ans=0;
+
+        //key value nums[i]==x==key 统计次数
+        unordered_map<int,int>left;
+        unordered_map<int,int>right;
+        
+        for(int x:nums){
+            right[x]++;
+        }
+        
+        //x->y 体现了 作用域和生命周期
+        for(int y:nums){
+            right[y]--;
+            ans=(ans + 1LL * left[y * 2] * right[y * 2] % MOD) % MOD;
+            left[y]++;
+        }
+        return ans;
+    }
+};
