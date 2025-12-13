@@ -1,0 +1,48 @@
+/************
+原版将unordered_map 
+unordered_map<string, int> BUSINESS_LINE_TO_CATEGORY = {
+    {"electronics", 0},
+    {"grocery", 1},
+    {"pharmacy", 2},
+    {"restaurant", 3},
+};
+这里面放class 内 验证 函数定义 存在即可
+******************/
+
+class Solution {
+public:
+    unordered_map<string,int>BUSINESS_LINE_TO_CATEGORY={
+        {"electronics",0},{"grocery",1},{"pharmacy", 2},{"restaurant", 3},
+    };
+
+
+
+
+    bool is_valid(const string &s){
+        for(char c:s){
+            if(c!='_'&&!isalnum(c)){
+                return false;
+            }
+        }
+        return  !s.empty();
+    }
+
+    vector<string> validateCoupons(vector<string>& code, vector<string>& businessLine, vector<bool>& isActive) {
+        vector<string>groups[4];
+        int n=code.size();
+        for(int i=0;i<n;i++){
+            string& s=code[i];
+            auto it=BUSINESS_LINE_TO_CATEGORY.find(businessLine[i]);
+            if(it != BUSINESS_LINE_TO_CATEGORY.end() && isActive[i] && is_valid(s)){
+                groups[it->second].push_back(s);
+            }
+        }
+
+        vector<string>ans;
+        for(auto& g:groups){
+            ranges::sort(g);
+            ans.insert(ans.end(),g.begin(),g.end());
+        }
+        return ans;
+    }
+};
